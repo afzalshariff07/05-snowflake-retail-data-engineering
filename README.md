@@ -197,30 +197,34 @@ pattern for scalable, reliable, and analytics-ready data pipelines.
 │   ├── products.json                     ← Product catalog (JSON from Inventory)
 │   └── transaction.snappy.parquet        ← Orders data (Parquet from E-Commerce)
 │
-└── 03_sql/
-    ├── 00_git_integration/
-    │   └── git_integration_setup.sql    ← Snowflake Git integration with GitHub repo
-    │
-    ├── 01_setup/
-    │   ├── create_db_and_schemas.sql     ← Database + Bronze/Silver/Gold schemas
-    │   └── external_stage_creation.sql  ← ADLS storage integration + stage
-    │
-    ├── 02_bronze/
-    │   ├── customer_load.sql             ← CSV file format + raw_customer table + task
-    │   ├── product_load.sql              ← JSON file format + raw_product table + task
-    │   └── orders_load.sql               ← Parquet file format + raw_order table + task
-    │
-    ├── 03_silver/
-    │   ├── silver_data_load.sql          ← Silver schema + customer/product/orders tables
-    │   ├── stream_creation.sql           ← CDC streams for all 3 Bronze tables
-    │   ├── customer_transform.sql        ← Stored procedure + task for customer MERGE
-    │   ├── product_transform.sql         ← Stored procedure + task for product MERGE
-    │   └── orders_transform.sql          ← Stored procedure + task for orders MERGE
-    │
-    └── 04_gold/
-        ├── gold_layer.sql                ← Gold schema + manual task execution helpers
-        ├── gold_view1_daily_sales.sql    ← VW_DAILY_SALES_ANALYSIS view
-        └── gold_view2_customer_affinity.sql ← VW_CUSTOMER_PRODUCT_AFFINITY view
+├── 03_sql/
+│   ├── 00_git_integration/
+│   │   └── git_integration_setup.sql    ← Snowflake Git integration with GitHub repo
+│   │
+│   ├── 01_setup/
+│   │   ├── create_db_and_schemas.sql     ← Database + Bronze/Silver/Gold schemas
+│   │   └── external_stage_creation.sql  ← ADLS storage integration + stage
+│   │
+│   ├── 02_bronze/
+│   │   ├── customer_load.sql             ← CSV file format + raw_customer table + task
+│   │   ├── product_load.sql              ← JSON file format + raw_product table + task
+│   │   └── orders_load.sql               ← Parquet file format + raw_order table + task
+│   │
+│   ├── 03_silver/
+│   │   ├── silver_data_load.sql          ← Silver schema + customer/product/orders tables
+│   │   ├── stream_creation.sql           ← CDC streams for all 3 Bronze tables
+│   │   ├── customer_transform.sql        ← Stored procedure + task for customer MERGE
+│   │   ├── product_transform.sql         ← Stored procedure + task for product MERGE
+│   │   └── orders_transform.sql          ← Stored procedure + task for orders MERGE
+│   │
+│   └── 04_gold/
+│       ├── gold_layer.sql                ← Gold schema + manual task execution helpers
+│       ├── gold_view1_daily_sales.sql    ← VW_DAILY_SALES_ANALYSIS view
+│       └── gold_view2_customer_affinity.sql ← VW_CUSTOMER_PRODUCT_AFFINITY view
+│
+└── 04_docs/                              ← ← NEW — Project documentation
+    └── Azure_Storage_Integration_Setup_Guide.docx
+                                          ← End-to-end Azure ADLS setup & troubleshooting guide
 ```
 
 ---
@@ -392,6 +396,10 @@ This project includes native Snowflake Git integration with GitHub, enabling:
 - Azure subscription with Storage Account creation rights
 - Azure Entra ID (AAD) Tenant ID
 
+> 📄 For a detailed walkthrough of the Azure ADLS storage integration setup — including
+> troubleshooting the service principal IAM assignment — see:
+> [`04_docs/Azure_Storage_Integration_Setup_Guide.docx`](04_docs/Azure_Storage_Integration_Setup_Guide.docx)
+
 ### Step-by-Step Execution Order
 
 ```sql
@@ -411,6 +419,7 @@ This project includes native Snowflake Git integration with GitHub, enabling:
 -- Replace: '<container_name>' with your container name
 -- Action: Grant Storage Blob Data Contributor role to the
 --         Snowflake multi-tenant app in Azure IAM
+-- 📄 See: 04_docs/Azure_Storage_Integration_Setup_Guide.docx
 
 -- ── STEP 3: Bronze Layer ───────────────────────────────────────
 -- Run in order:
