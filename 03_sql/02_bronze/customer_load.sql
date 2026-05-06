@@ -84,7 +84,7 @@ SELECT
     $4 AS country,
     $5 AS customer_type,
     $6 AS registration_date
-FROM @adls_stage/Customer
+FROM @pacificretail_stage/Customer
     (FILE_FORMAT => csv_file_format)
 LIMIT 10;
 
@@ -182,7 +182,7 @@ AS
             $9,                       -- total_purchases
             metadata$filename,        -- source file path from ADLS (lineage)
             metadata$file_row_number  -- row position in source file (lineage)
-        FROM @adls_stage/Customer/
+        FROM @pacificretail_stage/Customer/
     )
     FILE_FORMAT = (FORMAT_NAME = 'csv_file_format')
     ON_ERROR    = 'CONTINUE'
