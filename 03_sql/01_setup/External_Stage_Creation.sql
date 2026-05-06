@@ -131,6 +131,9 @@ SHOW STAGES IN SCHEMA pacificretail_db.bronze;
 --    This confirms Snowflake can successfully read from ADLS
 LIST @pacificretail_stage;
 
+-- OR
+
+ls @pacificretail_stage;
 
 -- ============================================================
 -- END OF SCRIPT
