@@ -215,8 +215,9 @@ pattern for scalable, reliable, and analytics-ready data pipelines.
 │   │   ├── stream_creation.sql           ← CDC streams for all 3 Bronze tables
 │   │   ├── customer_transform.sql        ← Stored procedure + task for customer MERGE
 │   │   ├── product_transform.sql         ← Stored procedure + task for product MERGE
-│   │   └── orders_transform.sql          ← Stored procedure + task for orders MERGE
-│   │
+│   │   ├── orders_transform.sql          ← Stored procedure + task for orders MERGE
+│   │   └── backfill_silver.sql          ← one-time Bronze → Silver backfill
+│   │   
 │   └── 04_gold/
 │       ├── gold_layer.sql                ← Gold schema + manual task execution helpers
 │       ├── gold_view1_daily_sales.sql    ← VW_DAILY_SALES_ANALYSIS view
