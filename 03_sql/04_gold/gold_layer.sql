@@ -168,11 +168,11 @@ SELECT * FROM silver.orders LIMIT 20;
 --   → How many rows passed DQ filters and landed in Silver (Silver count)
 --   → The difference = rows rejected by DQ rules (investigate if high)
 
-SELECT 'Bronze' AS layer, 'raw_customer' AS table_name, COUNT(*) AS row_count FROM raw_customer
+SELECT 'Bronze' AS layer, 'raw_customer' AS table_name, COUNT(*) AS row_count FROM pacificretail_db.bronze.raw_customer
 UNION ALL
-SELECT 'Bronze', 'raw_product',  COUNT(*) FROM raw_product
+SELECT 'Bronze', 'raw_product',  COUNT(*) FROM pacificretail_db.bronze.raw_product
 UNION ALL
-SELECT 'Bronze', 'raw_order',    COUNT(*) FROM raw_order
+SELECT 'Bronze', 'raw_order',    COUNT(*) FROM pacificretail_db.bronze.raw_order
 UNION ALL
 SELECT 'Silver', 'customer',     COUNT(*) FROM silver.customer
 UNION ALL
